@@ -1,23 +1,7 @@
 
 import axios from 'axios';
 
-// Determine API URL based on environment
-const getApiUrl = () => {
-  // If VITE_API_URL is set, use it
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  
-  // If in production and no env var, use production URL
-  if (import.meta.env.PROD) {
-    return 'https://passwordguardian-api.onrender.com';
-  }
-  
-  // Default to localhost for development
-  return 'http://localhost:8000';
-};
-
-const API_BASE_URL = getApiUrl();
+const API_BASE_URL = 'https://passwordguardian-api.onrender.com';
 
 export interface PasswordAnalysis {
   score: number;
