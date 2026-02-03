@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const API_BASE_URL = 'https://passwordguardian-api.onrender.com';
@@ -6,6 +5,8 @@ const API_BASE_URL = 'https://passwordguardian-api.onrender.com';
 export interface PasswordAnalysis {
   score: number;
   strength: string;
+  ml_prediction: number;
+  ml_confidence: number;
   entropy: number;
   crack_time: string;
   length: number;
@@ -17,6 +18,13 @@ export interface PasswordAnalysis {
   leet_speak_detected: boolean;
   suggestions: string[];
   breach_count: number;
+  feature_importance: {
+    entropy: number;
+    length: number;
+    char_diversity: number;
+    unique_ratio: number;
+    pattern_detected: number;
+  };
 }
 
 export const analyzePassword = async (password: string): Promise<PasswordAnalysis> => {

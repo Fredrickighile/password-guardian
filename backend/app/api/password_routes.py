@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.core.password_analyzer import PasswordAnalyzer
+from app.core.password_analyzer import RealMLPasswordAnalyzer
 import httpx
 
 router = APIRouter()
-analyzer = PasswordAnalyzer()
+analyzer = RealMLPasswordAnalyzer()
 
 class PasswordRequest(BaseModel):
     password: str
@@ -12,6 +12,8 @@ class PasswordRequest(BaseModel):
 class PasswordResponse(BaseModel):
     score: float
     strength: str
+    ml_prediction: int
+    ml_confidence: float
     entropy: float
     crack_time: str
     length: int
@@ -23,6 +25,7 @@ class PasswordResponse(BaseModel):
     leet_speak_detected: bool
     suggestions: list
     breach_count: int = 0
+    feature_importance: dict
 
 @router.post("/analyze", response_model=PasswordResponse)
 async def analyze_password(request: PasswordRequest):
