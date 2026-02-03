@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import password_routes
@@ -14,7 +13,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://password-guardian-eight.vercel.app",
-        "https://*.vercel.app"
+        "https://*.vercel.app",
+        "*"
     ],
     allow_credentials=True,
     allow_methods=["*"],

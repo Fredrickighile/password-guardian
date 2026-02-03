@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "PasswordGuardian",
+  "version": "1.0.0",
+  "description": "Real-time AI password analysis",
+  "permissions": ["activeTab"],
+  "host_permissions": ["https://passwordguardian-api.onrender.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
