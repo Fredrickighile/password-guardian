@@ -1,10 +1,7 @@
-// PasswordGuardian Chrome Extension - Real-time password analysis
-const API_URL = 'https://passwordguardian-api.onrender.com/api/passwords/analyze';
+const API_URL = 'http://localhost:8000/api/passwords/analyze';
 
-// Track analyzed fields to avoid duplicates
 const analyzedFields = new WeakSet();
 
-// Inject password strength indicator
 function createStrengthIndicator() {
   const indicator = document.createElement('div');
   indicator.className = 'pg-strength-indicator';
@@ -24,7 +21,6 @@ function createStrengthIndicator() {
   return indicator;
 }
 
-// Analyze password
 async function analyzePassword(password) {
   if (!password || password.length < 3) return null;
   
@@ -43,7 +39,6 @@ async function analyzePassword(password) {
   }
 }
 
-// Update indicator UI
 function updateIndicator(indicator, analysis) {
   if (!analysis) {
     indicator.style.display = 'none';
@@ -64,7 +59,6 @@ function updateIndicator(indicator, analysis) {
   indicator.style.color = color.text;
   indicator.style.display = 'block';
   
-  // Add breach warning
   if (analysis.breach_count > 0) {
     indicator.textContent = '⚠️ BREACHED';
     indicator.style.backgroundColor = '#dc2626';
@@ -72,24 +66,20 @@ function updateIndicator(indicator, analysis) {
   }
 }
 
-// Process password field
 function processPasswordField(field) {
   if (analyzedFields.has(field)) return;
   analyzedFields.add(field);
   
-  // Make parent position relative
   const parent = field.parentElement;
   if (parent && window.getComputedStyle(parent).position === 'static') {
     parent.style.position = 'relative';
   }
   
-  // Create indicator
   const indicator = createStrengthIndicator();
   field.parentElement.appendChild(indicator);
   
   let timeout;
   
-  // Analyze on input
   field.addEventListener('input', () => {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
@@ -100,16 +90,13 @@ function processPasswordField(field) {
   });
 }
 
-// Find and process all password fields
 function scanPasswordFields() {
   const passwordFields = document.querySelectorAll('input[type="password"]');
   passwordFields.forEach(processPasswordField);
 }
 
-// Initial scan
 scanPasswordFields();
 
-// Watch for dynamically added fields
 const observer = new MutationObserver(() => {
   scanPasswordFields();
 });
