@@ -31,6 +31,8 @@ PasswordGuardian is a comprehensive security platform that combines machine lear
 
 **Web Application:** [https://password-guardian-eight.vercel.app](https://password-guardian-eight.vercel.app)
 
+**API Endpoint:** [https://passwordguardian-api.onrender.com](https://passwordguardian-api.onrender.com)
+
 **API Documentation:** [Swagger UI](https://passwordguardian-api.onrender.com/docs)
 
 ---
